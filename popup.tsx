@@ -1,25 +1,30 @@
-import { useState } from "react"
+import { PersistGate } from "redux-persist/integration/react"
+
+import { Provider } from "~node_modules/react-redux/dist/react-redux"
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from "~node_modules/react-router-dom/dist"
+import Navigation from "~src/components/Navigation"
+import IntroPage from "~src/pages/IntroPage"
+import TemplatePage from "~src/pages/TemplatePage"
+import { persistor, store } from "~src/store/store"
 
 function IndexPopup() {
-  const [data, setData] = useState("")
-
   return (
-    <div
-      style={{
-        padding: 16
-      }}>
-      <h2>
-        Welcome to your{" "}
-        <a href="https://www.plasmo.com" target="_blank">
-          Plasmo
-        </a>{" "}
-        Extension!
-      </h2>
-      <input onChange={(e) => setData(e.target.value)} value={data} />
-      <a href="https://docs.plasmo.com" target="_blank">
-        View Docs
-      </a>
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/intro" element={<IntroPage />} />
+            <Route path="/template" element={<TemplatePage />} />
+            <Route path="/parcer" element={<TemplatePage />} />
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   )
 }
 
