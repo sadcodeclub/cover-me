@@ -1,7 +1,4 @@
-import {
-  createSlice,
-  type PayloadAction
-} from "~node_modules/@reduxjs/toolkit/dist"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 interface Template {
   id: string

@@ -1,10 +1,5 @@
+import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { persistReducer, persistStore } from "redux-persist"
-
-import { Storage } from "~node_modules/@plasmohq/storage/dist"
-import {
-  combineReducers,
-  configureStore
-} from "~node_modules/@reduxjs/toolkit/dist"
 
 import templateReducer from "./slices/templateSlice"
 
@@ -30,9 +25,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: {
+    getDefaultMiddleware({
+      serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"]
-    } })
+      }
+    })
 })
 
 export const persistor = persistStore(store)
